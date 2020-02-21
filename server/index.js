@@ -39,3 +39,9 @@ let { getAllTherapists } = therapistCtrl;
 
 // Therapist
 app.get('/api/therapists', getAllTherapists);
+
+var resourceCtrl = require('./controllers/resourceController');
+let { getAllResources } = resourceCtrl;
+
+// Resources
+app.get('/api/resources', getAllResources);
