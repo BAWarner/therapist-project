@@ -7,8 +7,6 @@ const session = require('express-session');
 
 const massive = require('massive');
 
-app.listen( SERVER_PORT, () => console.log('Party on, Wayne!') );
-
 massive(CONNECTION_STRING)
 .then( db => {
     console.log('Excellent!');
@@ -25,4 +23,19 @@ session({
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 
-})
+});
+
+app.listen( SERVER_PORT, () => console.log('Party on, Wayne!') );
+
+var authCtrl = require('./controllers/authController.js');
+let { registerUser } = authCtrl;
+
+// AUTH
+app.post('/auth/register', registerUser);
+
+
+var therapistCtrl = require('./controllers/therapistController');
+let { getAllTherapists } = therapistCtrl;
+
+// Therapist
+app.get('/api/therapists', getAllTherapists);
