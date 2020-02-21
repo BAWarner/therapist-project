@@ -28,10 +28,10 @@ session({
 app.listen( SERVER_PORT, () => console.log('Party on, Wayne!') );
 
 var authCtrl = require('./controllers/authController.js');
-let { registerUser } = authCtrl;
+let { registerPatient } = authCtrl;
 
 // AUTH
-app.post('/auth/register', registerUser);
+app.post('/auth/register', registerPatient);
 
 
 var therapistCtrl = require('./controllers/therapistController');
