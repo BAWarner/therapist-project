@@ -6,7 +6,10 @@ CREATE TABLE therapists(
     education TEXT,
     length_of_sessions INT,
     about TEXT,
-    insurance BOOLEAN
+    insurance BOOLEAN,
+    firstName VARCHAR(50),
+    lastName VARCHAR(50),
+    emailAddress VARCHAR(100)
 );
 
 CREATE TABLE resources(
@@ -23,7 +26,10 @@ CREATE TABLE patients(
     password TEXT NOT NULL,
     profile_image TEXT,
     therapist_id INT REFERENCES therapists(therapist_id),
-    resource_id INT REFERENCES resources(resource_id)
+    resource_id INT REFERENCES resources(resource_id),
+    firstName VARCHAR(50),
+    lastName VARCHAR(50),
+    emailAddress VARCHAR(100)
 );
 
 CREATE TABLE reviews(

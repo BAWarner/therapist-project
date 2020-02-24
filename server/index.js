@@ -7,6 +7,8 @@ const session = require('express-session');
 
 const massive = require('massive');
 
+app.use(express.json());
+
 massive(CONNECTION_STRING)
 .then( db => {
     console.log('Excellent!');
@@ -15,23 +17,27 @@ massive(CONNECTION_STRING)
 )
 .catch( err => console.error(err) );
 
-session({
-    saveUninitialized: true,
-    resave: false,
-    secret: SESSION_SECRET,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7
-    }
+app.use(
+    session({
+        saveUninitialized: true,
+        resave: false,
+        secret: SESSION_SECRET,
+        cookie: {
+            maxAge: 1000 * 60 * 60 * 24 * 7
+        }
 
-});
+    })
+);
 
 app.listen( SERVER_PORT, () => console.log('Party on, Wayne!') );
 
 var authCtrl = require('./controllers/authController.js');
-let { registerPatient } = authCtrl;
+let { register, login, logout } = authCtrl;
 
 // AUTH
-app.post('/auth/register', registerPatient);
+app.post('/auth/register/:type?', register);
+app.post('/auth/login', login);
+app.get('/auth/logout', logout);
 
 
 var therapistCtrl = require('./controllers/therapistController');
