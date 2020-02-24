@@ -76,7 +76,7 @@ export const retrieveUser = () => {
     }
 }
 
-var authReducer = ( state = initialState, action ) => {
+const authReducer = ( state = initialState, action ) => {
     let { type, payload } = action;
     switch(type){
         case UPDATE_STATE:

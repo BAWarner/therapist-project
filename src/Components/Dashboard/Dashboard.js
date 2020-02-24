@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-import { getTherapists } from '../../redux/reducers/therapistReducer';
+import { getAllTherapists } from '../../redux/reducers/therapistReducer';
 import { connect } from 'react-redux';
-import { withRoutes } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import Therapist from '../Therapists/Therapist';
 
 class Dashboard extends Component{
     componentDidMount(){
         this.props.getAllTherapists();
     }
     render(){
+        let therapistsMapped = this.props.therapists.map( therapist => {
+            return <Therapist therapist={therapist} />
+        } );
+
         return(
             <div className='dashboard'>
                 <h1>Regular Dash</h1>
+                { therapistsMapped }
             </div>
         );
     }
@@ -23,7 +29,7 @@ const mapStateToProps = state => {
     }
 }
 
-export default withRoutes(connect(
+export default withRouter(connect(
     mapStateToProps,
     {
         getAllTherapists
