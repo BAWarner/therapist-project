@@ -27,15 +27,18 @@ var login = async (req, res) => {
     if(patient.length  !== 0){
         var areEqual =  bcrypt.compareSync(password, patient[0].password);
         if(areEqual){
-            let { patient_id, username, profile_image } = patient[0];
+            let { patient_id, username, profile_image, firstname, lastname, emailaddress } = patient[0];
             req.session.user = {
                 user_id: patient_id,
                 username,
+                firstname,
+                lastname,
+                emailaddress,
                 profile_image
             }
             res
             .status(200)
-            .send(username)
+            .send(req.session.user)
         }else{
             res
             .status(403)
@@ -43,8 +46,9 @@ var login = async (req, res) => {
         }
     }else{
         var therapist = await db.therapists.getTherapist(username);
+        console.log(req.body);
 
-        if( therapist .length === 0){
+        if( therapist.length === 0){
             res
             .status(404)
             .send('Sorry, that usename doesn\'t exist in our system');
@@ -52,15 +56,19 @@ var login = async (req, res) => {
             var areEqual =  bcrypt.compareSync(password, therapist[0].password);
 
             if(areEqual){
-                let { therapist_id, username, profile_image } = therapist[0];
+                let { therapist_id, username, firstname, lastname, emailaddress, profile_image } = therapist[0];
                 req.session.user = {
                     user_id: therapist_id,
                     username,
+                    firstname,
+                    lastname,
+                    emailaddress,
+                    admin: true,
                     profile_image
                 }
                 res
                 .status(200)
-                .send(username)
+                .send(req.session.user)
 
             }else{
                 res
@@ -77,8 +85,15 @@ var logout = (req, res) => {
     res.sendStatus(200);
 }
 
+var retrieveUser = (req, res) => {
+    res
+    .status(200)
+    .send(req.session.user);
+}
+
 module.exports = {
     register,
     login,
-    logout
+    logout,
+    retrieveUser
 }
