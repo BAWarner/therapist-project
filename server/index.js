@@ -42,10 +42,11 @@ app.get('/auth/retrieve', retrieveUser);
 
 
 var therapistCtrl = require('./controllers/therapistController');
-let { getAllTherapists } = therapistCtrl;
+let { getAllTherapists, getOverallRatings } = therapistCtrl;
 
 // Therapist
 app.get('/api/therapists', getAllTherapists);
+app.get('/api/therapists/reviews/:id', getOverallRatings);
 
 var resourceCtrl = require('./controllers/resourceController');
 let { getAllResources } = resourceCtrl;

@@ -9,23 +9,29 @@ class Dashboard extends Component{
         this.props.getAllTherapists();
     }
     render(){
-        let therapistsMapped = this.props.therapists.map( therapist => {
-            return <Therapist therapist={therapist} />
+        let { loading } = this.props;
+        let therapistsMapped = this.props.therapists.map( (therapist, i) => {
+            return <Therapist key={i} therapist={therapist} />
         } );
 
         return(
             <div className='dashboard'>
                 <h1>Regular Dash</h1>
-                { therapistsMapped }
+
+                { loading 
+                    ? <img src='https://resources.humandx.org/static/img/loading_spinner.gif' alt='loading'/> 
+                    : therapistsMapped 
+                }
             </div>
         );
     }
 }
 
 const mapStateToProps = state => {
-    let { therapists } = state.therapistReducer;
+    let { therapists, loading } = state.therapistReducer;
     return{
-        therapists
+        therapists,
+        loading
     }
 }
 

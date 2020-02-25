@@ -47,6 +47,13 @@ class Navigation extends Component{
                             }
                             
                         </li>
+                        <li>
+                            <Link
+                                to='/profile'
+                            >
+                                Profile
+                            </Link>
+                        </li>
                     </ul>
                 </nav>
             </div>

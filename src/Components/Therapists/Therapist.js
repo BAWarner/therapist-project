@@ -17,8 +17,8 @@ class Therapist extends Component{
                 />
                 <div className='row justify-between'>
                     <span className='inline-block'><strong>Education:</strong> {education}</span>
-                    <span className='inline-block'><strong>Typical Session Duration:</strong> {length_of_sessions}</span>
-                    <span className='inline-block'><strong>Take insurance:</strong> {insurance}</span>
+                    <span className='inline-block'><strong>Typical Session Duration:</strong> {length_of_sessions} Minutes</span>
+                    <span className='inline-block'><strong>Take insurance:</strong> {insurance ? 'Yes' : 'No'}</span>
                     <span className='inline-block'><strong>Extra Info:</strong> {about}</span>
                     <span className='inline-block'><strong>Contact Info:</strong> {emailaddress}</span>
                 </div>
