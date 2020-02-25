@@ -16,6 +16,7 @@ const LOGIN_USER = 'login_user';
 const REGISTER_USER = 'register_user';
 const LOGOUT_USER = 'logout_user';
 const RETRIEVE_USER = 'retrieve_user';
+const UPDATE_CURRENT_USER = 'update_current_user';
 
 export const updateState = e => {
     return {
@@ -76,6 +77,14 @@ export const retrieveUser = () => {
     }
 }
 
+export const updatePatient = ( userInfo ) => {
+    let { user_id } = userInfo;
+    return{
+        type: UPDATE_CURRENT_USER,
+        payload: axios.put(`/api/patients/${user_id}`, userInfo)
+    }
+}
+
 const authReducer = ( state = initialState, action ) => {
     let { type, payload } = action;
     switch(type){
@@ -114,7 +123,23 @@ const authReducer = ( state = initialState, action ) => {
                 loading: false,
                 user: {}
             }
+        case `${RETRIEVE_USER}_PENDING`:
+            return{
+                ...state,
+                loading: true
+            }
         case `${RETRIEVE_USER}_FULFILLED`:
+            return{
+                ...state,
+                loading: false,
+                user: payload.data
+            }
+        case `${UPDATE_CURRENT_USER}_PENDING`:
+            return{
+                ...state,
+                loading: true
+            }
+        case `${UPDATE_CURRENT_USER}_FULFILLED`:
             return{
                 ...state,
                 loading: false,

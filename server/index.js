@@ -1,11 +1,15 @@
 require('dotenv').config();
-let { CONNECTION_STRING, SESSION_SECRET, SERVER_PORT } = process.env;
+let { CONNECTION_STRING, SESSION_SECRET, SERVER_PORT} = process.env;
 
 const express = require('express');
 const app = express();
 const session = require('express-session');
 
 const massive = require('massive');
+
+const cors = require('cors');
+
+app.use(cors());
 
 app.use(express.json());
 
@@ -31,25 +35,53 @@ app.use(
 
 app.listen( SERVER_PORT, () => console.log('Party on, Wayne!') );
 
+// AUTH
 var authCtrl = require('./controllers/authController.js');
 let { register, login, logout, retrieveUser } = authCtrl;
 
-// AUTH
 app.post('/auth/register/:type?', register);
-app.post('/auth/login', login);
 app.get('/auth/logout', logout);
+app.post('/auth/login', login);
 app.get('/auth/retrieve', retrieveUser);
 
 
-var therapistCtrl = require('./controllers/therapistController');
-let { getAllTherapists, getOverallRatings } = therapistCtrl;
-
 // Therapist
-app.get('/api/therapists', getAllTherapists);
-app.get('/api/therapists/reviews/:id', getOverallRatings);
+var therapistCtrl = require('./controllers/therapistController');
+let { getAllTherapists, getOverallRatings, getAllReviews, postReview } = therapistCtrl;
 
+app.get('/api/therapists', getAllTherapists);
+app.get('/api/therapists/ratings/:id', getOverallRatings);
+app.get('/api/therapists/reviews', getAllReviews);
+app.post('/api/therapists/reviews', postReview);
+
+// Resources
 var resourceCtrl = require('./controllers/resourceController');
 let { getAllResources } = resourceCtrl;
 
-// Resources
 app.get('/api/resources', getAllResources);
+
+// Patient
+var patientCtrl = require('./controllers/patientController');
+let { updatePatient } = patientCtrl;
+
+app.put('/api/patients/:id', updatePatient);
+
+
+
+// AWS
+var awsCtrl = require('./controllers/AWS');
+let { generateGetUrl, generatePutUrl } = awsCtrl;
+
+app.get('/generate-get-url', (req, res) => {
+    const { Key } = req.query;
+    generateGetUrl(Key)
+    .then( getUrl => res.send(getUrl) )
+    .catch( err => res.send(err) );
+});
+
+app.get('/generate-put-url', (req, res) => {
+    const { Key, ContentType } = req.query;
+    generatePutUrl(Key, ContentType)
+    .then( putURL => res.send(putURL) )
+    .catch( err => res.send(err) );
+});

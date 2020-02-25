@@ -35,7 +35,7 @@ CREATE TABLE patients(
 CREATE TABLE reviews(
     review_id SERIAL PRIMARY KEY,
     comment TEXT NOT NULL,
-    rating INT NOT NULL,
+    rating FLOAT NOT NULL,
     patient_id INT REFERENCES patients(patient_id),
     therapist_id INT REFERENCES therapists(therapist_id)
 );

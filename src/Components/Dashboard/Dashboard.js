@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllTherapists } from '../../redux/reducers/therapistReducer';
+import { getAllTherapists, getAllReviews } from '../../redux/reducers/therapistReducer';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Therapist from '../Therapists/Therapist';
@@ -7,17 +7,18 @@ import Therapist from '../Therapists/Therapist';
 class Dashboard extends Component{
     componentDidMount(){
         this.props.getAllTherapists();
+        this.props.getAllReviews();
     }
     render(){
-        let { loading } = this.props;
+        let { reviews, loading} = this.props;
         let therapistsMapped = this.props.therapists.map( (therapist, i) => {
-            return <Therapist key={i} therapist={therapist} />
+            var therapistReviews = reviews.filter( review => review.therapist_id === therapist.therapist_id );
+            return <Therapist key={i} therapist={therapist} reviews={therapistReviews} />
         } );
 
         return(
             <div className='dashboard'>
                 <h1>Regular Dash</h1>
-
                 { loading 
                     ? <img src='https://resources.humandx.org/static/img/loading_spinner.gif' alt='loading'/> 
                     : therapistsMapped 
@@ -28,9 +29,10 @@ class Dashboard extends Component{
 }
 
 const mapStateToProps = state => {
-    let { therapists, loading } = state.therapistReducer;
+    let { therapists, loading, reviews } = state.therapistReducer;
     return{
         therapists,
+        reviews,
         loading
     }
 }
@@ -38,6 +40,7 @@ const mapStateToProps = state => {
 export default withRouter(connect(
     mapStateToProps,
     {
-        getAllTherapists
+        getAllTherapists,
+        getAllReviews
     }
 )(Dashboard));
