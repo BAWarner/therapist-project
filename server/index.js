@@ -47,12 +47,13 @@ app.get('/auth/retrieve', retrieveUser);
 
 // Therapist
 var therapistCtrl = require('./controllers/therapistController');
-let { getAllTherapists, getOverallRatings, getAllReviews, postReview } = therapistCtrl;
+let { getAllTherapists, getOverallRatings, getAllReviews, postReview, getTherapistSpecialties } = therapistCtrl;
 
 app.get('/api/therapists', getAllTherapists);
 app.get('/api/therapists/ratings/:id', getOverallRatings);
 app.get('/api/therapists/reviews', getAllReviews);
 app.post('/api/therapists/reviews', postReview);
+app.get('/api/therapists/specialties/:id', getTherapistSpecialties);
 
 // Resources
 var resourceCtrl = require('./controllers/resourceController');
@@ -65,23 +66,3 @@ var patientCtrl = require('./controllers/patientController');
 let { updatePatient } = patientCtrl;
 
 app.put('/api/patients/:id', updatePatient);
-
-
-
-// AWS
-var awsCtrl = require('./controllers/AWS');
-let { generateGetUrl, generatePutUrl } = awsCtrl;
-
-app.get('/generate-get-url', (req, res) => {
-    const { Key } = req.query;
-    generateGetUrl(Key)
-    .then( getUrl => res.send(getUrl) )
-    .catch( err => res.send(err) );
-});
-
-app.get('/generate-put-url', (req, res) => {
-    const { Key, ContentType } = req.query;
-    generatePutUrl(Key, ContentType)
-    .then( putURL => res.send(putURL) )
-    .catch( err => res.send(err) );
-});

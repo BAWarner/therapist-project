@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { retrieveUser, updatePatient, updateState } from '../../redux/reducers/authReducer';
+require("dotenv").config();
 
 class Profile extends Component{
     constructor(){
@@ -49,9 +50,31 @@ class Profile extends Component{
             profile_image
         });
     }
+    checkUploadResult = (error, result) => {
+        let { event, info } = result ;
+        if(event === 'success'){
+            console.log('Party on, Wayne!');
+            this.setState({ profile_image: info.url });
+        }
+    }
     
     render(){
         let { username, firstname, lastname, emailaddress, profile_image } = this.state;
+        const { REACT_APP_cloudName, REACT_APP_cloudinary_unsigned } = process.env;
+        let widget;
+        if( window.cloudinary ) {
+            widget = window.cloudinary.createUploadWidget(
+                {
+                    cloudName: `${REACT_APP_cloudName}`,
+                    uploadPreset: `${REACT_APP_cloudinary_unsigned}`,
+                    sources: ['local', 'url', 'facebook', 'instagram'],
+                    Default: false
+                },
+                ( error, result ) => {
+                    this.checkUploadResult(error, result);
+                }
+            );
+        }
         return(
             <div className='wrap profile'>
                 <h1>{username}'s Profile</h1>
@@ -61,7 +84,7 @@ class Profile extends Component{
                         ?
                         <section className='wrap display'>
                             <img
-                                src={ profile_image ? profile_image : 'https://cdn0.iconfinder.com/data/icons/set-ui-app-android/32/8-512.png' } alt='profile picture'
+                                src={ profile_image ? profile_image : 'https://www.fillmurray.com/300/200' } alt='profile picture'
                             />
                             <h3>{`${firstname} ${lastname}`}</h3>
                             <h3>{emailaddress ? emailaddress : null}</h3>
@@ -86,24 +109,7 @@ class Profile extends Component{
                                 value={emailaddress}
                                 onChange={this.handleChange}
                             />
-                            {
-                                profile_image 
-                                ?
-                                    <input
-                                        type='text'
-                                        name='profile_image'
-                                        value={profile_image}
-                                        onChange={this.handleChange}
-                                    />
-                                :
-                                    <input
-                                        type='text'
-                                        name='profile_image'
-                                        placeholder='URL to Profile Image'
-                                        onChange={this.handleChange}
-                                    />
-                            }
-                            
+                            <button name='profile_image' onClick={ () => widget.open() }>Upload Profile Image</button>
                             <button onClick={this.handleUpdate}>Update Profile</button>
                         </section>
                 }

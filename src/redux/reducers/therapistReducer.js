@@ -10,6 +10,7 @@ const initialState = {
 const GET_ALL_THERAPISTS = 'get_all_therapists';
 const GET_ALL_REVIEWS = 'get_all_reviews';
 const GET_THERAPIST_RATING = 'get_therapist_rating';
+// const GET_THERAPIST_SPECIALTIES = 'get_therapist_specialties';
 
 export const getAllTherapists = () => {
     return{
@@ -31,6 +32,13 @@ export const getAllReviews = () => {
         payload: axios.get(`/api/therapists/reviews`)
     }
 }
+
+// export const getTherapistSpecialties = therapist_id => {
+//     return{
+//         type: GET_THERAPIST_SPECIALTIES,
+//         payload: axios.get(`/api/therapists/specialties/${therapist_id}`)
+//     }
+// }
 
 const therapistReducer = (state=initialState, action) => {
     let { type, payload } = action;
@@ -69,6 +77,17 @@ const therapistReducer = (state=initialState, action) => {
                 loading: false,
                 reviews: payload.data
             }
+        // case `${GET_THERAPIST_SPECIALTIES}_PENDING`:
+        //     return{
+        //         ...state,
+        //         loading: true
+        //     }
+        // case `${GET_THERAPIST_SPECIALTIES}_FULFILLED`:
+        //     return{
+        //         ...state,
+        //         loading: false,
+        //         specialties: payload.data
+        //     }
 
         default: return state;
     }

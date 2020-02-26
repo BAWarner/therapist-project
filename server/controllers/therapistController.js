@@ -37,9 +37,20 @@ var postReview = async (req, res) => {
     .sendStatus(200);
 }
 
+var getTherapistSpecialties =  async (req, res) => {
+    var db = req.app.get('db');
+    let therapist_id = req.params.id;
+    var specialties = await db.therapists.getTherapistSpecialties( therapist_id );
+
+    res
+    .status(200)
+    .send(specialties);
+}
+
 module.exports = {
     getAllTherapists,
     getOverallRatings,
     getAllReviews,
-    postReview
+    postReview,
+    getTherapistSpecialties
 }

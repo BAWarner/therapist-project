@@ -18,7 +18,6 @@ class Dashboard extends Component{
 
         return(
             <div className='dashboard'>
-                <h1>Regular Dash</h1>
                 { loading 
                     ? <img src='https://resources.humandx.org/static/img/loading_spinner.gif' alt='loading'/> 
                     : therapistsMapped 
