@@ -7,19 +7,32 @@ class Profile extends Component{
     constructor(){
         super();
         this.state = {
-            showEdit: false
+            showEdit: false,
+            username: '',
+            firstname: '',
+            lastname: '',
+            emailaddress: '',
+            profile_image: ''
         }
     }
 
     handleChange = e => {
-        this.props.updateState({ [e.target.name]: e.target.value });
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     handleUpdate = () => {
         let { updatePatient, user } = this.props;
-        console.log(user);
-        // updatePatient(user);
-        this.setState({ showEdit: !this.state.showEdit })
+        let {firstname, lastname, emailaddress, profile_image, showEdit} = this.state;
+        let userInfo = {
+            user_id: user.user_id,
+            username: this.props.user.username,
+            firstname,
+            lastname,
+            emailaddress,
+            profile_image
+        }
+        updatePatient(userInfo);
+        this.setState({ showEdit: !showEdit })
     }
     toggleEdit = () => {
         let { showEdit } = this.state;
@@ -27,10 +40,18 @@ class Profile extends Component{
     }
     componentDidMount(){
         this.props.retrieveUser();
+        let { username, firstname, lastname, emailaddress, profile_image } = this.props.user;
+        this.setState({
+            username,
+            firstname,
+            lastname,
+            emailaddress,
+            profile_image
+        });
     }
     
     render(){
-        let { username, firstname, lastname, emailaddress, profile_image } = this.props.user;
+        let { username, firstname, lastname, emailaddress, profile_image } = this.state;
         return(
             <div className='wrap profile'>
                 <h1>{username}'s Profile</h1>
@@ -43,7 +64,7 @@ class Profile extends Component{
                                 src={ profile_image ? profile_image : 'https://cdn0.iconfinder.com/data/icons/set-ui-app-android/32/8-512.png' } alt='profile picture'
                             />
                             <h3>{`${firstname} ${lastname}`}</h3>
-                            <h3>{`${emailaddress}`}</h3>
+                            <h3>{emailaddress ? emailaddress : null}</h3>
                         </section>
                         :
                         <section className='wrap form'>

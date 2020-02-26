@@ -22,7 +22,7 @@ var login = async (req, res) => {
     var db = req.app.get('db');
     let { username, password } = req.body;
 
-    var patient = await db.patients.getPatient(username);
+    var patient = await db.patients.loginPatient(username);
 
     if(patient.length  !== 0){
         var areEqual =  bcrypt.compareSync(password, patient[0].password);
@@ -46,7 +46,6 @@ var login = async (req, res) => {
         }
     }else{
         var therapist = await db.therapists.getTherapist(username);
-        console.log(req.body);
 
         if( therapist.length === 0){
             res

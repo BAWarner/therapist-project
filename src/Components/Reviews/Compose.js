@@ -26,8 +26,7 @@ class Compose extends Component{
 
         axios
         .post('/api/therapists/reviews', body)
-        .then( res => {
-            console.log(res.data);
+        .then( () => {
             this.setState({ rating: 5, comment: '' });
             this.props.getAllTherapists();
             this.props.getAllReviews();

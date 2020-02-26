@@ -21,7 +21,6 @@ var getOverallRatings = async (req, res) => {
 var getAllReviews = async (req, res) => {
     var db = req.app.get('db');
     var reviews = await db.therapists.getAllReviews();
-    console.log(reviews);
 
     res
     .status(200)

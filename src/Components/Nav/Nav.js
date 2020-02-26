@@ -16,7 +16,6 @@ class Navigation extends Component{
         );
     }
     render(){
-        console.log(this.props);
         let { user_id } = this.props.user;
         var logoLink;
         user_id ? logoLink = '/home' : logoLink = '/';
