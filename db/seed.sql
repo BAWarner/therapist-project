@@ -7,9 +7,9 @@ CREATE TABLE therapists(
     length_of_sessions INT,
     about TEXT,
     insurance BOOLEAN,
-    firstName VARCHAR(50),
-    lastName VARCHAR(50),
-    emailAddress VARCHAR(100)
+    firstname VARCHAR(50),
+    lastname VARCHAR(50),
+    emailaddress VARCHAR(100)
 );
 
 CREATE TABLE resources(
@@ -27,9 +27,9 @@ CREATE TABLE patients(
     profile_image TEXT,
     therapist_id INT REFERENCES therapists(therapist_id),
     resource_id INT REFERENCES resources(resource_id),
-    firstName VARCHAR(50),
-    lastName VARCHAR(50),
-    emailAddress VARCHAR(100)
+    firstname VARCHAR(50),
+    lastname VARCHAR(50),
+    emailaddress VARCHAR(100)
 );
 
 CREATE TABLE reviews(
@@ -40,9 +40,17 @@ CREATE TABLE reviews(
     therapist_id INT REFERENCES therapists(therapist_id)
 );
 
+CREATE TABLE patient_status(
+    status_id SERIAL PRIMARY KEY,
+    therapist_id INT REFERENCES therapists(therapist_id),
+    patient_id INT REFERENCES patients(patient_id),
+    status VARCHAR(10) DEFAULT 'inactive'
+);
+
 CREATE TABLE specialties(
     specialty_id SERIAL PRIMARY KEY,
-    name VARCHAR(255)
+    name VARCHAR(255),
+    abbreviation VARCHAR(10)
 );
 
 CREATE TABLE amenities(
