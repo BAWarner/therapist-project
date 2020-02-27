@@ -47,10 +47,34 @@ var getTherapistSpecialties =  async (req, res) => {
     .send(specialties);
 }
 
+var getPatientList = async (req, res) => {
+    var db = req.app.get('db');
+    let therapist_id = req.params.id;
+
+    var patientList = await db.therapists.getPatientsList(therapist_id);
+
+    res
+    .status(200)
+    .send(patientList);
+
+}
+
+var changePatientStatus = async (req, res) => {
+    var db = req.app.get('db');
+    var status_id = req.params.id;
+    let { decision } = req.body;
+    await db.therapists.updatePatientStatus( status_id, decision );
+
+    res.sendStatus(200);
+
+}
+
 module.exports = {
     getAllTherapists,
     getOverallRatings,
     getAllReviews,
     postReview,
-    getTherapistSpecialties
+    getTherapistSpecialties,
+    getPatientList,
+    changePatientStatus
 }

@@ -9,6 +9,17 @@ const updatePatient = async (req, res) => {
     .send(updated)
 }
 
+const postStatus = async (req, res) => {
+    const db = req.app.get('db');
+    let { user_id, therapist_id } = req.body;
+    var patientStatus = await db.patients.postPatientStatus(user_id, therapist_id);
+
+    res
+    .status(200)
+    .send(patientStatus);
+}
+
 module.exports = {
-    updatePatient
+    updatePatient,
+    postStatus
 }

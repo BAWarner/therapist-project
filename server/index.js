@@ -47,13 +47,16 @@ app.get('/auth/retrieve', retrieveUser);
 
 // Therapist
 var therapistCtrl = require('./controllers/therapistController');
-let { getAllTherapists, getOverallRatings, getAllReviews, postReview, getTherapistSpecialties } = therapistCtrl;
+let { getAllTherapists, getOverallRatings, getAllReviews, postReview, 
+    getTherapistSpecialties, getPatientList, changePatientStatus } = therapistCtrl;
 
 app.get('/api/therapists', getAllTherapists);
 app.get('/api/therapists/ratings/:id', getOverallRatings);
 app.get('/api/therapists/reviews', getAllReviews);
 app.post('/api/therapists/reviews', postReview);
 app.get('/api/therapists/specialties/:id', getTherapistSpecialties);
+app.get('/api/therapists/patients/:id', getPatientList);
+app.put('/api/therapists/patients/:id', changePatientStatus);
 
 // Resources
 var resourceCtrl = require('./controllers/resourceController');
@@ -63,6 +66,7 @@ app.get('/api/resources', getAllResources);
 
 // Patient
 var patientCtrl = require('./controllers/patientController');
-let { updatePatient } = patientCtrl;
+let { updatePatient, postStatus } = patientCtrl;
 
 app.put('/api/patients/:id', updatePatient);
+app.post('/api/patients/status', postStatus)

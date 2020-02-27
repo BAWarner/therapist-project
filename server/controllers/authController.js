@@ -24,17 +24,32 @@ var login = async (req, res) => {
 
     var patient = await db.patients.loginPatient(username);
 
-    if(patient.length  !== 0){
+    if(patient.length !== 0){
         var areEqual =  bcrypt.compareSync(password, patient[0].password);
         if(areEqual){
             let { patient_id, username, profile_image, firstname, lastname, emailaddress } = patient[0];
+            const checkStatus = await db.patients.checkPatientStatus( patient_id );
+            
+            if(checkStatus.length > 0){
+                var { status } = checkStatus[0];
+                var therapist_info = {
+                    name: checkStatus[0].firstname + ' ' +checkStatus[0].lastname,
+                    id: checkStatus[0].therapist_id
+                };
+            }else{
+                var status = 'inactive';
+                var therapist_info = {};
+            }
+
             req.session.user = {
                 user_id: patient_id,
                 username,
                 firstname,
                 lastname,
                 emailaddress,
-                profile_image
+                profile_image,
+                status,
+                therapist_info
             }
             res
             .status(200)
