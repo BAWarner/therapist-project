@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Resource extends Component{
+class TherapistResource extends Component{
     constructor(){
         super();
         this.state = {
@@ -27,6 +27,10 @@ class Resource extends Component{
         let { resource_id, name, document, description } = this.state;
         this.props.handleUpdate(resource_id, name, document, description);
         this.setState({ showEdit: false })
+    }
+    handleDelete = () => {
+        let { resource_id } = this.state;
+        this.props.handleDelete( resource_id );
     }
     toggleEdit = () => {
         this.setState({ showEdit: !this.state.showEdit });
@@ -66,6 +70,7 @@ class Resource extends Component{
 
         return(
             <div>
+                <button onClick={this.handleDelete} className='delete'>&times;</button>
                 {
                     this.state.showEdit
                     ?
@@ -93,4 +98,4 @@ class Resource extends Component{
     }
 }
 
-export default Resource;
+export default TherapistResource;

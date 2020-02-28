@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { retrieveUser } from '../../redux/reducers/authReducer';
-import TherapistResources from './TherapistSide';
-import ClientResources from './ClientSide';
+import TherapistResources from './TherapistResources';
+import ClientResources from './ClientResources';
 
 class Resources extends Component{
     componentDidMount(){

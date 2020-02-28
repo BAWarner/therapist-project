@@ -45,9 +45,21 @@ const updateResource = async (req, res) => {
 
 }
 
+const deleteResource = async (req, res) => {
+    const db = req.app.get('db');
+    let resource_id = req.params.id;
+        
+    await db.resources.deleteResource( resource_id );
+
+    res
+    .status(200)
+    .send(resource_id);
+}
+
 module.exports = {
     getAllResources,
     getTherapistResources,
     addResource,
-    updateResource
+    updateResource,
+    deleteResource
 }

@@ -10,6 +10,7 @@ const GET_ALL_RESOURCES = 'GET_ALL_RESOURCES';
 const GET_THERAPIST_RESOURCES = 'GET_THERAPIST_RESOURCES';
 const ADD_RESOURCE = 'ADD_RESOURCE';
 const UPDATE_RESOURCE = 'UPDATE_RESOURCE';
+const DELETE_RESOURCE = 'DELETE_RESOURCE';
 
 
 export const getAllResources = () => {
@@ -48,6 +49,13 @@ export const updateResource = (resource_id, name, document, description, therapi
     return{
         type: UPDATE_RESOURCE,
         payload: axios.put(`/api/resources/${resource_id}`, body)
+    }
+}
+
+export const deleteResource = (resource_id) => {
+    return{
+        type: DELETE_RESOURCE,
+        payload: axios.delete(`/api/resources/${resource_id}`)
     }
 }
 
@@ -102,6 +110,20 @@ const resourceReducer = (state=initialState, action) => {
                     ...state,
                     loading: false,
                     resources: [...state.resources, payload.data]
+                }
+            case `${DELETE_RESOURCE}_PENDING`:
+                return{
+                    ...state,
+                    loading: true
+                }
+            case `${DELETE_RESOURCE}_FULFILLED`:
+                var splice = state.resources.findIndex( resource => resource.resource_id === payload.data );
+                state.resources.splice(splice, 1);
+
+                return{
+                    ...state,
+                    loading: false,
+                    resources: [...state.resources]
                 }
     
             default: return state;

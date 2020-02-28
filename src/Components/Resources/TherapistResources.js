@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { addResource, getTherapistResources, updateResource } from '../../redux/reducers/resourceReducer';
+import { addResource, getTherapistResources, updateResource, deleteResource } from '../../redux/reducers/resourceReducer';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Resource from './SingleResource';
+import TherapistResource from './TherapistResource';
 require('dotenv').config();
 
 class TherapistResources extends Component{
@@ -30,6 +30,10 @@ class TherapistResources extends Component{
         let { user_id: therapist_id } = this.props.userInfo;
         this.props.updateResource( resource_id, name, document, description, therapist_id );
     }
+    handleDelete = resource_id => {
+        let { user_id: therapist_id } = this.props.userInfo;
+        this.props.deleteResource( resource_id, therapist_id );
+    }
     toggleAdd = () => {
         this.setState({ showAdd: !this.state.showAdd });
     }
@@ -47,10 +51,11 @@ class TherapistResources extends Component{
     render(){
         const { REACT_APP_cloudName, REACT_APP_cloudinary_unsigned } = process.env;
         let mappedResources = this.props.resources.map( (resource, i) => {
-            return (<Resource
+            return (<TherapistResource
                         key={i}
                         resource={resource}
                         handleUpdate={this.handleUpdate}
+                        handleDelete={this.handleDelete}
                         cloud={REACT_APP_cloudName}
                         preset={REACT_APP_cloudinary_unsigned}
                     />);
@@ -102,7 +107,8 @@ export default withRouter(
         {
             addResource,
             getTherapistResources,
-            updateResource
+            updateResource,
+            deleteResource
         }
     )
     (TherapistResources)
