@@ -60,9 +60,12 @@ app.put('/api/therapists/patients/:id', changePatientStatus);
 
 // Resources
 var resourceCtrl = require('./controllers/resourceController');
-let { getAllResources } = resourceCtrl;
+let { getAllResources, getTherapistResources, addResource, updateResource } = resourceCtrl;
 
 app.get('/api/resources', getAllResources);
+app.get('/api/resources/:id', getTherapistResources);
+app.post('/api/resources/:id', addResource);
+app.put('/api/resources/:id', updateResource);
 
 // Patient
 var patientCtrl = require('./controllers/patientController');

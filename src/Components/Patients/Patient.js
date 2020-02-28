@@ -7,7 +7,7 @@ class Patient extends Component{
             <div className='card patient'>
                 <img
                     src={profile_image ? profile_image : 'https://www.fillmurray.com/300/200'} 
-                    alt={`${firstname} ${lastname} profile picture`}
+                    alt={`${firstname} ${lastname} profile `}
                 />
                 <h1>{`${firstname} ${lastname}`}</h1>
                 <h2>{`${emailaddress}`}</h2>

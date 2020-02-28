@@ -8,6 +8,46 @@ var getAllResources = async (req, res) => {
 
 }
 
+const getTherapistResources = async (req, res) => {
+    const db = req.app.get('db');
+    let therapist_id = req.params.id;
+    var resources = await db.resources.getTherapistResources(therapist_id);
+
+    res
+    .status(200)
+    .send(resources);
+}
+
+const addResource = async (req, res) => {
+    const db = req.app.get('db');
+
+    let therapist_id = req.params.id;
+    let { name, document, description } = req.body;
+
+    var resource = await db.resources.addResource( therapist_id, name, document, description );
+    
+    res
+    .status(200)
+    .send(resource);
+}
+
+const updateResource = async (req, res) => {
+    const db = req.app.get('db');
+    let resource_id = req.params.id,
+        { name, document, description, therapist_id } = req.body;
+    
+    var resource = await db.resources.updateResource( resource_id, name, document, description, therapist_id );
+
+    res
+    .status(200)
+    .send(resource);
+    
+
+}
+
 module.exports = {
-    getAllResources
+    getAllResources,
+    getTherapistResources,
+    addResource,
+    updateResource
 }

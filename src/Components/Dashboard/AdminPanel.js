@@ -13,14 +13,14 @@ class AdminPanel extends Component{
         this.props.getPatientsList( user_id );
     }
     render(){
-        var currentPatient = this.props.patientList.map( patient => {
+        var currentPatient = this.props.patientList.map( (patient, i) => {
             if(patient.status === 'active'){
-                return <Patient patientInfo={ patient } />
+                return <Patient key={i} patientInfo={ patient } />
             }
         } )
-        var pendingPatient = this.props.patientList.filter( patient => {
+        var pendingPatient = this.props.patientList.filter( (patient, i) => {
             if(patient.status === 'pending'){
-                return <PendingPatient patientInfo={ patient } />
+                return <PendingPatient key={i} patientInfo={ patient } />
             }
         } )
         return(

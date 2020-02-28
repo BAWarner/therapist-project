@@ -38,19 +38,25 @@ class Navigation extends Component{
                                             Log Out
                                         </button>
                                     :
-                                        <Link
-                                            to='/login'
-                                        >
+                                        <Link to='/login'>
                                             Log In
                                         </Link>
                             }
                             
                         </li>
                         <li>
-                            <Link
-                                to='/profile'
-                            >
+                            <Link to='/profile'>
                                 Profile
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/resources'>
+                                Resources
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/calendar'>
+                                Calendar
                             </Link>
                         </li>
                     </ul>

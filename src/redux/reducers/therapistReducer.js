@@ -35,19 +35,19 @@ export const getAllReviews = () => {
     }
 }
 
-// export const getTherapistSpecialties = therapist_id => {
-//     return{
-//         type: GET_THERAPIST_SPECIALTIES,
-//         payload: axios.get(`/api/therapists/specialties/${therapist_id}`)
-//     }
-// }
-
 export const getPatientsList = therapist_id => {
     return{
         type: GET_PATIENTS_LIST,
         payload: axios.get(`/api/therapists/patients/${therapist_id}`)
     }
 }
+
+// export const getTherapistSpecialties = therapist_id => {
+//     return{
+//         type: GET_THERAPIST_SPECIALTIES,
+//         payload: axios.get(`/api/therapists/specialties/${therapist_id}`)
+//     }
+// }
 
 const therapistReducer = (state=initialState, action) => {
     let { type, payload } = action;

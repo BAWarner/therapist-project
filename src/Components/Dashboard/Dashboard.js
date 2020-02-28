@@ -4,6 +4,7 @@ import { retrieveUser } from '../../redux/reducers/authReducer';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Therapist from '../Therapists/Therapist';
+import Calendar from '../Calendar/Calendar';
 
 class Dashboard extends Component{
     componentDidMount(){

@@ -3,11 +3,13 @@ import promise from 'redux-promise-middleware';
 
 import authReducer from './reducers/authReducer';
 import therapistReducer from './reducers/therapistReducer';
+import resourceReducer from './reducers/resourceReducer';
 
 var combinedReducers = combineReducers(
     {
         authReducer,
-        therapistReducer
+        therapistReducer,
+        resourceReducer
     }
 );
 
