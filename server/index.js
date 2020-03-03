@@ -37,12 +37,13 @@ app.listen( SERVER_PORT, () => console.log('Party on, Wayne!') );
 
 // AUTH
 var authCtrl = require('./controllers/authController.js');
-let { register, login, logout, retrieveUser } = authCtrl;
+let { register, login, logout, retrieveUser, handleStripe } = authCtrl;
 
 app.post('/auth/register/:type?', register);
 app.get('/auth/logout', logout);
 app.post('/auth/login', login);
 app.get('/auth/retrieve', retrieveUser);
+app.post('/auth/handleStripe', handleStripe);
 
 
 // Therapist

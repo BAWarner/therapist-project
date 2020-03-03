@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+require('dotenv').config();
 
 var register = async (req, res) => {
     var db = req.app.get('db');
@@ -105,9 +106,25 @@ var retrieveUser = (req, res) => {
     .send(req.session.user);
 }
 
+// Stripe
+
+let { STRIPE_SECRET } = process.env;
+
+const stripe = require('stripe')(STRIPE_SECRET);
+
+
+var handleStripe = async (req, res) => {
+    let { token, total } = req.body;
+    console.log( token, total );
+
+    res.sendStatus(200);
+}
+
+
 module.exports = {
     register,
     login,
     logout,
-    retrieveUser
+    retrieveUser,
+    handleStripe
 }
