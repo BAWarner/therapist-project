@@ -1,49 +1,25 @@
 import React, { Component } from 'react';
-require('dotenv').config();
-
+const CONFIG = require('./settings/settings');
+const CalendarAPI = require('node-google-calendar');
 
 class Calendar extends Component{
-    
-    constructor(){
-        super();
-        this.state = {
-            events: []
-        }
-    }
-
-    componentDidMount(){
-        this.getEvents();
-    }
-    
-    getEvents = () => {
-        let { REACT_APP_googleApi, REACT_APP_googleCalendar } = process.env,
-            that = this;
-        const start = () => {
-            window.gapi.client.init({
-                'apikey': REACT_APP_googleApi
-            })
-            .then( () => {
-                return window.gapi.client.request({
-                    'path': `https://www.googleapis.com/calendar/v3/calendars/${REACT_APP_googleCalendar}/events`
-                })
-            } )
-            .then( 
-                res => {
-                    let events = res.results.items;
-                    that.setState( { events }, () => console.log(that.state.events) )
-                },
-                function(reason){
-                    console.log(reason);
-                }
-            );
-        }
-        window.gapi.load('client', start);
-    }
-
     render(){
+        let calendar = new CalendarAPI(CONFIG);
+        let params = { 
+            timeMin: '2020-02-01:00:00-07:00',
+            timeMax: '2020-04-01:00:00-07:00',
+            q: 'query_term',
+            singleEvents: true,
+            orderBy: 'startTime'
+        },
+        calendarId = CONFIG.calendarId["primary"];
+
+        calendar.Events.list(calendarId, params)
+        .then( res => console.log(res) )
+        .catch( err => console.log(err.message) )
         return(
             <div className='wrap calendar'>
-                <h1>Calendar...coming soon....</h1>
+                
             </div>
         );
     }
