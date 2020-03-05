@@ -18,6 +18,18 @@ class AdminPanel extends Component{
         getPatientsList( user_id );
         getAllTherapistAppointments( user_id );
     }
+    sortDate = (a, b) => {
+        const appointmentA = new Date(a.props.appointment.start);
+        const appointmentB = new Date(b.props.appointment.start);
+
+        let comparison = 0;
+        if( appointmentA >  appointmentB ){
+            comparison = 1
+        } else if( appointmentA < appointmentB ){
+            comparison = -1
+        }
+        return comparison;
+    }
     render(){
         let { patientList, appointments } = this.props;
 
@@ -38,8 +50,7 @@ class AdminPanel extends Component{
             if(appointment.patient_id && start > now){
                 return <AdminAgenda key={i} appointment={ appointment } />;
             }
-        });
-
+        }).sort(this.sortDate);
         return(
             <div className='adminPanel'>
                 <h1>Admin Panel</h1>
