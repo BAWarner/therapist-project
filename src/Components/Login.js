@@ -13,6 +13,14 @@ class Login extends Component{
         loginUser(username, password)
         .catch( err => console.error(err) );
     }
+    handleKeyPress = e => {
+        if(e.key == 'Enter'){
+            let { username, password } = this.props;
+            if(username && password ){
+                this.login();
+            }
+        }
+    }
     render(){
 
         if (this.props.user) return <Redirect to='/home' />
@@ -31,6 +39,7 @@ class Login extends Component{
                     name="password"
                     placeholder="Password"
                     onChange={this.handleChange}
+                    onKeyPress={this.handleKeyPress}
                 />
 
                 <button
