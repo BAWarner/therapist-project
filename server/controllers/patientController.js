@@ -31,8 +31,21 @@ const getAppointments = async (req, res) => {
     .send(appointments);
 }
 
+const getContact = async (req, res) => {
+    const db = req.app.get('db');
+    let patient_id = req.params.id;
+
+    var contact = await db.patients.getContact(patient_id);
+
+    res
+    .status(200)
+    .send(contact);
+
+}
+
 module.exports = {
     updatePatient,
     postStatus,
-    getAppointments
+    getAppointments,
+    getContact
 }

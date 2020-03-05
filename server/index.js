@@ -75,8 +75,9 @@ app.delete('/api/resources/:id', deleteResource);
 
 // Patient
 var patientCtrl = require('./controllers/patientController');
-let { updatePatient, postStatus, getAppointments } = patientCtrl;
+let { updatePatient, postStatus, getAppointments, getContact } = patientCtrl;
 
 app.put('/api/patients/:id', updatePatient);
 app.post('/api/patients/status', postStatus);
 app.get('/api/patients/appointments/:id', getAppointments);
+app.get('/api/patients/contact/:id', getContact);

@@ -1,43 +1,73 @@
 import React, { Component } from 'react';
 import { getPatientsList } from '../../redux/reducers/therapistReducer';
 import { retrieveUser } from '../../redux/reducers/authReducer';
+import { getAllTherapistAppointments } from '../../redux/reducers/appointmentReducer';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Patient from '../Patients/Patient';
 import PendingPatient from '../Patients/PendingPatient';
+import AdminAgenda from '../Calendar/AdminAgenda';
 
 class AdminPanel extends Component{
     componentDidMount(){
-        let { user_id } = this.props.user;
-        this.props.retrieveUser();
-        this.props.getPatientsList( user_id );
+        let { retrieveUser, getPatientsList, 
+            getAllTherapistAppointments, user } = this.props,
+            { user_id } = user;
+
+        retrieveUser();
+        getPatientsList( user_id );
+        getAllTherapistAppointments( user_id );
     }
     render(){
-        var currentPatient = this.props.patientList.map( (patient, i) => {
+        let { patientList, appointments } = this.props;
+
+        var currentPatient = patientList.map( (patient, i) => {
             if(patient.status === 'active'){
-                return <Patient key={i} patientInfo={ patient } />
+                return <Patient key={i} patientInfo={ patient } />;
             }
         } )
-        var pendingPatient = this.props.patientList.filter( (patient, i) => {
+        var pendingPatient = patientList.filter( (patient, i) => {
             if(patient.status === 'pending'){
-                return <PendingPatient key={i} patientInfo={ patient } />
+                return <PendingPatient key={i} patientInfo={ patient } />;
             }
         } )
+        var upcomingAppointments = appointments.map( (appointment, i) => {
+            let now = Date.now(),
+                start = new Date(appointment.start);
+
+            if(appointment.patient_id && start > now){
+                return <AdminAgenda key={i} appointment={ appointment } />;
+            }
+        });
+
         return(
             <div className='adminPanel'>
                 <h1>Admin Panel</h1>
-                <div className='col small-12 medium-6'>
-                    <h2>Current Clients</h2>
-                    { currentPatient }
-                </div>
-                <div className='col small-12 medium-6'>
-                    <h2>Pending Clients</h2>
-                    {   pendingPatient.length > 0
-                        ?
-                            pendingPatient
-                        :
-                            'No Clients currently pending' 
-                    }
+                <div className='row align-top justify-between'>
+                    <div className='col col-sm-12 col-md-8'>
+                        <div className='row'>
+                            <div className='col-sm-12'>
+                                <h2>Pending Clients</h2>
+                                {   pendingPatient.length > 0
+                                    ?
+                                        pendingPatient
+                                    :
+                                        'No Clients currently pending' 
+                                }
+                            </div>
+                            <div className='col-sm-12'>
+                                <h2>Current Clients</h2>
+                                { currentPatient }
+                            </div>
+                        </div>
+                    </div>
+                    <div className='col col-md-4 col-sm-12'>
+                        {
+                            upcomingAppointments.length > 0
+                            ? upcomingAppointments
+                            : 'No Upcoming Appointments'
+                        }
+                    </div>
                 </div>
             </div>
         );
@@ -46,11 +76,13 @@ class AdminPanel extends Component{
 
 const mapStateToProps = state => {
     let { user } = state.authReducer,
-        { patientList } = state.therapistReducer;
+        { patientList } = state.therapistReducer,
+        { appointments } = state.appointmentReducer;
 
     return{
         user,
-        patientList
+        patientList,
+        appointments
     }
 }
 
@@ -58,7 +90,8 @@ export default withRouter(connect(
     mapStateToProps,
     {
         getPatientsList,
-        retrieveUser
+        retrieveUser,
+        getAllTherapistAppointments
     }
 )
 (AdminPanel));
