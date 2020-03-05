@@ -4,7 +4,6 @@ class ClientAgenda extends Component{
     render(){
         let { start, endapt } = this.props.appointment,
             { name } = this.props.therapist;
-            console.log(this.props.therapist);
         let begin = new Date(start),
             end = new Date(endapt),
             beginString = begin.toDateString(),
