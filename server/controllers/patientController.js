@@ -23,7 +23,6 @@ const getAppointments = async (req, res) => {
     const db = req.app.get('db');
     let user_id = req.params.id,
         therapist_id = req.query.therapist;
-        console.log('user:', user_id, 'therapist:', therapist_id)
     var appointments = await db.patients.getMyTherapistAppointments( therapist_id, user_id );
 
     res

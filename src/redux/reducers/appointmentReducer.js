@@ -6,7 +6,7 @@ const initialState = {
 }
 
 const GET_ALL_THERAPIST_APPOINTMENTS = 'get_all_therapist_appointments';
-const GET_MY_THERAPIST_APPOINTMENTS = 'get_my_therapist_appointments';
+const GET_MY_APPOINTMENTS = 'get_my_appointments';
 
 export const getAllTherapistAppointments = therapist_id => {
     return{
@@ -15,9 +15,9 @@ export const getAllTherapistAppointments = therapist_id => {
     }
 }
 
-export const getMyTherapistAppointments = (therapist_id, user_id) => {
+export const getMyAppointments = (therapist_id, user_id) => {
     return{
-        type: GET_MY_THERAPIST_APPOINTMENTS,
+        type: GET_MY_APPOINTMENTS,
         payload: axios.get(`/api/patients/appointments/${user_id}?therapist=${therapist_id}`)
     }
 }
@@ -37,12 +37,12 @@ const appointmentReducer = (state=initialState, action ) => {
                 loading: false,
                 appointments: payload.data
             }
-        case  `${GET_MY_THERAPIST_APPOINTMENTS}_PENDING`:
+        case  `${GET_MY_APPOINTMENTS}_PENDING`:
             return{
                 ...state,
                 loading: true
             }
-        case  `${GET_MY_THERAPIST_APPOINTMENTS}_FULFILLED`:
+        case  `${GET_MY_APPOINTMENTS}_FULFILLED`:
             return{
                 ...state,
                 loading: false,
