@@ -7,34 +7,38 @@ class CheckoutForm extends Component{
         super();
         this.state = {
             stripeKey: 'pk_test_AiKr5auFY37g1kC4rtDGhn5500dvNReUzp',
-            amount: null
+            amount: null,
+            name: ''
         }
-    }
-    componentDidMount(){
-        this.setState({ amount: 2200 })
     }
     onToken = token => {
         let stringToken = JSON.stringify(token),
             body = {
                 token: stringToken,
-                total: this.state.amount
+                total: this.props.amount
             };
         axios
         .post('/auth/handleStripe', body)
-        .then( res => console.log(res) )
+        .then( () => {
+            axios
+            .put(`/api/therapists/appointments/${this.props.appointment}`, this.props.details)
+            .then( () => this.props.update() )
+            .catch( err => console.log( err ) )
+        } )
         .catch( err => console.log(err) );
     }
 
     render(){
+        console.log(this.props.appointment, this.props.details)
         return(
             <StripeCheckout 
                 stripeKey={this.state.stripeKey}
                 token={this.onToken}
-                amount={this.state.amount}
+                amount={this.props.amount}
                 currency='USD'
                 locale='en'
-                description='Dynamic user info coming soon'
-                name='Therapist Finder'
+                description='Pre-pay for appointment time'
+                name={this.props.name}
             >
                 <button className='btn btn-primary'>Schedule</button>
             </StripeCheckout>

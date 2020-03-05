@@ -80,3 +80,13 @@ CREATE TABLE therapist_methods(
     therapist_id INT REFERENCES therapists(therapist_id),
     method_id INT REFERENCES methods(method_id)
 );
+
+CREATE TABLE appointments(
+    appointment_id SERIAL PRIMARY KEY,
+    price INT,
+    therapist_id INT REFERENCES therapists(therapist_id) NOT NULL,
+    patient_id INT REFERENCES patients(patient_id),
+    startApt TEXT NOT NULL,
+    endApt TEXT NOT NULL,
+    title VARCHAR(250)
+);

@@ -6,14 +6,14 @@ import Landing from './Components/Landing';
 import Login from './Components/Login';
 import Register from './Components/Register/Register';
 import Profile from './Components/Profile/Profile';
-import Calendar from './Components/Calendar/Calendar';
+import CalendarViews from './Components/Calendar/Calendar';
 import Resources from './Components/Resources/Resources';
 
 
 export default(
     <Switch>
         <Route
-            component={Calendar}
+            component={CalendarViews}
             path='/calendar'
         />
         <Route

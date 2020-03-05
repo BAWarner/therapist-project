@@ -69,6 +69,44 @@ var changePatientStatus = async (req, res) => {
 
 }
 
+var addNewAppointment = async (req, res) => {
+    var db = req.app.get('db');
+    let therapist_id = req.params.id,
+        { start, end, title, price } = req.body;
+    price = (price * 100);
+    await db.therapists.addAppointment( therapist_id, start, end, title, price )
+    let appointments = await db.therapists.getAllTherapistAppointments( therapist_id );
+
+    res
+    .status(200)
+    .send(appointments);
+}
+
+var getTherapistAppointments = async (req, res) => {
+    const db = req.app.get('db');
+    let therapist_id = req.params.id;
+
+    let appointments = await db.therapists.getAllTherapistAppointments( therapist_id );
+
+    res
+    .status(200)
+    .send(appointments);
+
+}
+
+var updateAppointment = async (req, res) => {
+    const db = req.app.get('db');
+
+    let appointment_id = req.params.id,
+        patient_id = req.body.user_id;
+    await db.therapists.updateAppointment(appointment_id, patient_id);
+    console.log(appointment_id, patient_id)
+
+    res
+    .sendStatus(200);
+
+}
+
 module.exports = {
     getAllTherapists,
     getOverallRatings,
@@ -76,5 +114,8 @@ module.exports = {
     postReview,
     getTherapistSpecialties,
     getPatientList,
-    changePatientStatus
+    changePatientStatus,
+    addNewAppointment,
+    getTherapistAppointments,
+    updateAppointment
 }
