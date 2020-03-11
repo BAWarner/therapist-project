@@ -44,8 +44,8 @@ class Dashboard extends Component{
         .catch( err => console.log(err) );
     }
     render(){
-        let { reviews, loading, user, appointments } = this.props;
-        let therapistsMapped = this.props.therapists.map( (therapist, i) => {
+        let { reviews, loading, user, appointments, therapists } = this.props;
+        let therapistsMapped = therapists.map( (therapist, i) => {
             var therapistReviews = reviews.filter( review => review.therapist_id === therapist.therapist_id );
             return <Therapist key={i} therapist={therapist} userInfo={this.props.user} reviews={therapistReviews} />
         } ).sort(this.sortTherapist);
