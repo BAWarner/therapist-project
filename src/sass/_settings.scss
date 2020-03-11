@@ -1,0 +1,380 @@
+/*
+=================================
+        Global Settings
+=================================
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Spartan:300,400,600,700&display=swap');
+
+$primary: #ff545c;
+$secondary: #94a5a6;
+$white: #ffffff;
+$gray: #999999;
+$light-gray: #eeeeee;
+$dark-gray: #484848;
+$black: #212020;
+
+
+/*
+==========================
+        Breakpoints
+==========================
+*/
+
+
+$breakpoints: (
+    'small' : (max-width: 766px),
+    'medium' : (max-width: 1023px),
+    'large' : (max-width: 1199px)
+);
+
+@mixin breakpoint($name){
+    @if map-has-key($breakpoints, $name){
+        @media #{inspect(map-get($breakpoints, $name))}{
+            @content;
+        }
+    }
+    @else{
+        @warn 'Sorry, no the breakpoint `#{$name}` wasn\'t found in `#{$breakpoints}`.'
+            + 'If you think this is wrong, please make sure it is defined in `$breakpoints` map.';
+    }
+}
+
+/*
+======================
+        Flex
+======================
+*/
+
+.flex{
+    display: flex;
+    flex-wrap: wrap;
+    &.reverse{
+        flex-direction: row-reverse;
+    }
+}
+.justify{
+    &-evenly{
+        justify-content: space-evenly;
+    }
+    &-center{
+        justify-content: center;
+    }
+    &-around{
+        justify-content: space-around;
+    }
+}
+.align-items{
+    &-middle{
+        align-items: center;
+    }
+    &-end{
+        align-items: flex-end;
+    }
+}
+
+.row{
+    @extend .relative;
+    margin-left: 0;
+    max-width: 100%;
+    &.row-mobile-reverse{
+        @include breakpoint(small){
+            flex-direction: column-reverse;
+        }
+    }
+}
+
+/*
+============================================
+        Positioning/Margins/Padding
+============================================
+*/
+
+.no-mrg{
+    margin: 0;
+}
+.no-pad{
+    padding: 0;
+    &-mobile{
+        padding: inherit;
+        @include breakpoint(medium){
+            padding: 0;
+        }
+    }
+}
+.mrg{
+    &-top{
+        &-10{
+            margin-top: 10px;
+        }
+        &-15{
+            margin-top: 15px;
+        }
+        &-25{
+            margin-top: 25px;
+        }
+        &-55{
+            margin-top: 55px;
+        }
+    }
+    &-btm{
+        &-10{
+            margin-bottom: 10px;
+        }
+        &-15{
+            margin-bottom: 15px;
+        }
+        &-25{
+            margin-bottom: 25px;
+        }
+        &-55{
+            margin-bottom: 55px;
+        }
+    }
+    &-left{
+        &-10{
+            margin-left: 10px;
+        }
+        &-15{
+            margin-left: 15px;
+        }
+        &-25{
+            margin-left: 25px;
+        }
+        &-55{
+            margin-left: 55px;
+        }
+    }
+    &-right{
+        &-10{
+            margin-right: 10px;
+        }
+        &-15{
+            margin-right: 15px;
+        }
+        &-25{
+            margin-right: 25px;
+        }
+        &-55{
+            margin-right: 55px;
+        }
+    }
+}
+
+.pad{
+    &-10{
+        padding: 10px;
+    }
+    &-15{
+        padding: 15px;
+    }
+    &-25{
+        padding: 25px;
+    }
+    &-55{
+        padding: 55px;
+    }
+    &-top{
+        &-10{
+            padding-top: 10px;
+        }
+        &-15{
+            padding-top: 15px;
+        }
+        &-25{
+            padding-top: 25px;
+        }
+        &-55{
+            padding-top: 55px;
+        }
+    }
+    &-btm{
+        &-10{
+            padding-bottom: 10px;
+        }
+        &-15{
+            padding-bottom: 15px;
+        }
+        &-25{
+            padding-bottom: 25px;
+        }
+        &-55{
+            padding-bottom: 55px;
+        }
+    }
+    &-left{
+        &-10{
+            padding-left: 10px;
+        }
+        &-15{
+            padding-left: 15px;
+        }
+        &-25{
+            padding-left: 25px;
+        }
+        &-55{
+            padding-left: 55px;
+        }
+    }
+    &-right{
+        &-10{
+            padding-right: 10px;
+        }
+        &-15{
+            padding-right: 15px;
+        }
+        &-25{
+            padding-right: 25px;
+        }
+        &-55{
+            padding-right: 55px;
+        }
+    }
+}
+
+.relative{
+    position: relative;
+}
+.wrap{
+    max-width: 1350px;
+    margin: 0 auto;
+}
+.mini-wrap{
+    p{
+        max-width: 66%;
+    }
+    @include breakpoint(medium){
+        p{
+            max-width: 95%;
+        }
+    }
+}
+.z-index-2{
+    z-index: 2;
+}
+.z-index-10{
+    z-index: 10;
+}
+.block{
+    display: block;
+}
+
+.inline-block{
+    display: inline-block;
+}
+
+/*
+============================
+        Backgrounds
+============================
+*/
+
+.bg{
+    &-cover{
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    &-white{
+        background-color: $white;
+    }
+    &-gray{
+        background-color: $gray;
+    }
+    &-light-gray{
+        background-color: $light-gray;
+    }
+    &-family{
+        background-image: url('../assets/img/a-man-and-a-woman-assisting-a-girl-while-jumping-1128317.jpg');
+        min-height: 400px;
+    }
+    &-face{
+        background-image: url('../assets/img/group-of-people-having-fun-together-under-the-sun-708392.jpg');
+    }
+}
+
+
+
+/*
+========================
+        Sizing
+========================
+*/
+
+.height{
+    &-100-p{
+        height: 100%;
+        &-calc{
+            height: calc(100% - 85px);
+        }
+    }
+    &-fit-content{
+        height: fit-content;
+    }
+    &-100-vh{
+        height: 100vh;
+        &-calc{
+            height: calc(100vh - 85px);
+        }
+    }
+}
+
+.width{
+    &-100-p{
+        width: 100%;
+    }
+    &-90-p{
+        width: 90%;
+    }
+    &-10-p{
+        width: 10%;
+    }
+}
+
+/*
+============================
+        Misc Utils
+============================
+*/
+body{
+    overflow-x: hidden;
+}
+*{
+    box-sizing: border-box;
+}
+
+.overlay{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.6);
+    &.light{
+        background-color: rgba(0,0,0,0.3);
+    }
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+img{
+    max-width: 100%;
+}
+
+.box-shadow{
+    box-shadow: 0px 0px 6px rgba(0,0,0,0.5);
+}
+
+
+.col-sm-3{
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.col-sm-9{
+    flex: 0 0 75%;
+    max-width: 75%;
+}

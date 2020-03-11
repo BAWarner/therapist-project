@@ -1,0 +1,85 @@
+body{
+    font-family: 'Spartan', sans-serif;
+    font-weight: 400;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6{
+    font-weight: 700;
+}
+
+a{
+    font-weight: 600;
+    color: $primary;
+    &:hover{
+        text-decoration: none;
+        color: darken( $primary, 25%);
+    }
+}
+
+/*
+===================
+    Alignments
+===================
+*/
+
+.text{
+    &-center{
+        text-align: center;
+    }
+    &-right{
+        text-align: right;
+    }
+    &-left{
+        text-align: left;
+    }
+    &-mobile-center{
+        @include breakpoint(medium){
+            text-align: center;
+        }
+    }
+    &-mobile-right{
+        @include breakpoint(medium){
+            text-align: right;
+        }
+    }
+    &-mobile-left{
+        @include breakpoint(medium){
+            text-align: left;
+        }
+    }
+}
+
+
+/*
+================
+    Coloring
+================
+*/
+
+.primary{
+    color: $primary;
+}
+.secondary{
+    color: $secondary;
+}
+.white{
+    color: $white;
+}
+
+/*
+================
+    Weights
+================
+*/
+
+.bold{
+    font-weight: 700;
+}
+.light{
+    font-weight: 300;
+}

@@ -13,12 +13,18 @@ class ClientResource extends Component{
             src = './placeholder.png';
         }
         return(
-            <div>
-                <h1>{name}</h1>
+            <div className='singleResource card col-sm-12 col-md-4'>
                 <a href={document} target="_blank">
-                    <img src={src} alt='Resource Preview'/>
+                    <div className='inner-card'>
+                        <h1>{name}</h1>
+                        <img 
+                            src={src}
+                            alt='Resource Preview'
+                            className='mrg-top-25 mrg-btm-25'
+                        />
+                        <p>{description}</p>
+                    </div>
                 </a>
-                <p>{description}</p>
             </div>
         );
     }

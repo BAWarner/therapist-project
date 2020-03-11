@@ -18,7 +18,6 @@ class RegisterTherapist extends Component{
     render(){
         return(
             <section>
-                <h2>Therapist</h2>
                 <input
                     type="text"
                     name="username"
@@ -43,7 +42,7 @@ class RegisterTherapist extends Component{
                     placeholder="Last Name"
                     onChange={this.handleChange}
                 />
-                <Link to='/home'>
+                <Link to='/login'>
                     <button
                         onClick={this.register}
                     >

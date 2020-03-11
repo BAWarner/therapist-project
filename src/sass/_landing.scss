@@ -1,0 +1,46 @@
+.landing{
+    @extend .relative;
+    @extend .bg-cover;
+    background-image: url('../assets/img/woman-holding-a-smiley-balloon-1236678.jpg');
+    height: 90vh;
+    nav{
+        background-color: transparent;
+        a{
+            color: $white;
+        }
+    }
+
+    input{
+        &[type='text'],
+        &[type='password']{
+            display: inline-block;
+        }
+    }
+
+    .register{
+        input{
+            &:not(first-child){
+                margin: 0 10px;
+                @include breakpoint(medium){
+                    width: 45%;
+                    margin: 0 10px 15px;
+                }
+            }
+        }
+        a{
+            button{
+                @include breakpoint(medium){
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+        }
+    }
+    .logo{
+        &:hover{
+            color: $white;
+            border-color: $white;
+        }
+    }
+
+}

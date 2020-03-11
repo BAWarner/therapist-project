@@ -41,11 +41,11 @@ class AdminAgenda extends Component{
         let { firstname, lastname, email, details } = this.state;
 
         return(
-            <div className='agenda' onClick={this.toggleDetails}>
+            <div className='agenda mrg-btm-25 pointer' onClick={this.toggleDetails}>
                 <h4>{beginString}</h4>
-                {`${beginH}:${beginM}`} - {`${endH}:${endM}`}
-                {`${firstname} ${lastname}`}
-                { details ? email : null }
+                <span className='block mrg-btm-10'>{`${beginH}:${beginM}`} - {`${endH}:${endM}`}</span>
+                <span className='block mrg-btm-5'>{`${firstname} ${lastname}`}</span>
+                <span className='block'>{ details ? email : null }</span>
             </div>
         );
     }

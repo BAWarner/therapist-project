@@ -1,10 +1,22 @@
 var getAllTherapists = async (req, res) => {
     var db = req.app.get('db');
+    var updatedTherapists;
+
     var therapists = await db.therapists.getAllTherapists();
-    
-    res
-    .status(200)
-    .send(therapists);
+
+    updatedTherapists = therapists;
+
+    updatedTherapists = updatedTherapists.map( async therapist => {
+        let { therapist_id } = therapist;
+        var specialties = await db.info.getSpecialties(therapist_id);
+        var amenities = await db.info.getAmenities(therapist_id);
+        var methods = await db.info.getAmenities(therapist_id);
+        therapist = {...therapist, specialties, methods, amenities};
+        return therapist;
+    });
+
+
+    Promise.all(updatedTherapists).then( values => res.status(200).send(values) );
 }
 
 var getOverallRatings = async (req, res) => {
@@ -35,16 +47,6 @@ var postReview = async (req, res) => {
 
     res
     .sendStatus(200);
-}
-
-var getTherapistSpecialties =  async (req, res) => {
-    var db = req.app.get('db');
-    let therapist_id = req.params.id;
-    var specialties = await db.therapists.getTherapistSpecialties( therapist_id );
-
-    res
-    .status(200)
-    .send(specialties);
 }
 
 var getPatientList = async (req, res) => {
@@ -107,15 +109,36 @@ var updateAppointment = async (req, res) => {
 
 }
 
+var getExtraInfo = async (req, res) => {
+    const db = req.app.get('db');
+    let therapist_id = req.params.id;
+
+    var specialties = await db.info.getSpecialties( therapist_id );
+    var amenities = await db.info.getAmenities(therapist_id);
+    var methods = await db.info.getMethods(therapist_id);
+
+    var info = {
+        specialties,
+        amenities,
+        methods
+    }
+
+    res
+    .status(200)
+    .send(info);
+
+    // Promise.all([specialties, amenities, methods]).then( values => res.status(200).send(values) );
+}
+
 module.exports = {
     getAllTherapists,
     getOverallRatings,
     getAllReviews,
     postReview,
-    getTherapistSpecialties,
     getPatientList,
     changePatientStatus,
     addNewAppointment,
     getTherapistAppointments,
-    updateAppointment
+    updateAppointment,
+    getExtraInfo
 }

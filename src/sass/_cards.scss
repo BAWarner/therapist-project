@@ -1,0 +1,56 @@
+.reviews{
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.card{
+    border: unset;
+    img{
+        max-width: 100%;
+    }
+    &.patient{
+        img{
+            margin-bottom: 25px;
+        }
+    }
+
+    .inner-card{
+        border: 2px solid $secondary;
+        padding: 25px;
+        width: fit-content;
+        border-radius: 3px;
+        box-shadow: 5px 6px 7px rgba(100,100,100,0.4);
+        @include breakpoint(small){
+            box-shadow: unset;
+            margin-bottom: 15px;
+        }
+        @extend .text-center;
+
+    }
+
+    &.singleResource{
+        img{
+            max-width: 300px;
+        }
+        a{
+            color: $black;
+            p{
+                font-weight: 400;
+            }
+        }
+    }
+
+    &.therapist{
+        span{
+            &.col-sm-12{
+                @extend .mrg-btm-10;
+            }
+        }
+        li{
+            margin-bottom: 10px;
+        }
+        .inner-card{
+            @extend .text-left;
+        }
+    }
+}

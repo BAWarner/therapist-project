@@ -115,9 +115,18 @@ const stripe = require('stripe')(STRIPE_SECRET);
 
 var handleStripe = async (req, res) => {
     let { token, total } = req.body;
-    console.log( token, total );
+    // Gets an error, but Stripe docs doesn't list the error at all... 
+    
+    // const charge = await stripe.charges.create({
+    //     amount: total,
+    //     currency: 'usd',
+    //     description: 'Pre-pay for appointment time',
+    //     source: { token: token.id }
+    // }).catch( err => console.log(err));
 
     res.sendStatus(200);
+
+    
 }
 
 

@@ -5,7 +5,6 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import CheckoutForm from '../Stripe/CheckoutForm';
-import axios from 'axios';
 
 const localizer = momentLocalizer(moment);
 
@@ -66,6 +65,9 @@ class ClientCalendar extends Component{
             .catch( err => console.error(err) );
         }
     }
+    togglePayment = () => {
+        this.setState({ showPayment: !this.state.showPayment });
+    }
     componentDidMount(){
         this.updateAppointmentsList();
     }
@@ -84,13 +86,23 @@ class ClientCalendar extends Component{
                 />
                 {
                     showPayment
-                    ? <CheckoutForm
-                            amount={price}
-                            name={title}
-                            details={details}
-                            appointment={appointment_id}
-                            update={this.updateAppointmentsList}
-                        />
+                    ? 
+                    <div className='lightbox text-center'>
+                        <div className='overlay'></div>
+                        <div className='form showPayment row align-items-center'>
+                            <button className='small cancel' onClick={ this.togglePayment }>Cancel</button>
+                            <div className='col-sm-12'>
+                                <h3 className='mrg-btm-25'>Book your <br/>'{title}'<br/> appointment in advance!</h3>
+                                <CheckoutForm
+                                    amount={price}
+                                    name={title}
+                                    details={details}
+                                    appointment={appointment_id}
+                                    update={this.updateAppointmentsList}
+                                />
+                            </div>
+                        </div>
+                    </div>
                     : null
                 }
             </div>

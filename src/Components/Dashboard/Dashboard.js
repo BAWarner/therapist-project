@@ -20,6 +20,17 @@ class Dashboard extends Component{
         }
         return comparison;
     }
+    sortTherapist = (a, b) => {
+        const therapistIdA = a.props.therapist.therapist_id;
+        const therapistIdB = b.props.therapist.therapist_id;
+        let comparison = 0;
+        if( therapistIdA > therapistIdB ){
+            comparison = 1;
+        }else if( therapistIdA < therapistIdB ){
+            comparison = -1;
+        }
+        return comparison;
+    }
     componentDidMount(){
         let { getAllTherapists, getAllReviews, retrieveUser, getMyAppointments } = this.props;
         getAllTherapists();
@@ -36,30 +47,30 @@ class Dashboard extends Component{
         let { reviews, loading, user, appointments } = this.props;
         let therapistsMapped = this.props.therapists.map( (therapist, i) => {
             var therapistReviews = reviews.filter( review => review.therapist_id === therapist.therapist_id );
-            return <Therapist key={i} therapist={therapist} reviews={therapistReviews} />
-        } );
+            return <Therapist key={i} therapist={therapist} userInfo={this.props.user} reviews={therapistReviews} />
+        } ).sort(this.sortTherapist);
         let appointmentsMapped = appointments.map( (appointment, i) => {
             return <ClientAgenda key={i} appointment={appointment} therapist={ this.props.user.therapist_info } />
         }).sort(this.sortDate);
 
         return(
             <div className='dashboard'>
-                <div className='row align-top justify-between'>
-                    <div className='col col-sm-12 col-md-8'>
+                <div className='row align-top justify-between row-mobile-reverse'>
+                    <div className='col-sm-12 col-md-8'>
                         {
                             user.status === 'active'
-                            ? <h3>Your Main Therapist: {user.therapist_info.name}</h3>
+                            ? <h3 className='mrg-btm-25'>Your Main Therapist: {user.therapist_info.name}</h3>
                             : null
                         }
                         { loading 
                             ? <img src='https://resources.humandx.org/static/img/loading_spinner.gif' alt='loading'/> 
-                            : therapistsMapped 
+                            : <div className='row align-item-top justify-between'>{therapistsMapped}</div>
                         }
                     </div>
-                    <div className='col col-sm-12 col-md-4'>
+                    <div className='col-sm-12 col-md-4'>
                         {
                             appointmentsMapped.length > 0
-                            ? appointmentsMapped
+                            ? <><h3 className='mrg-btm-25'>Upcoming Appointments</h3>{appointmentsMapped}</>
                             : 'No Upcoming Appointments Scheduled'
                         }
                     </div>

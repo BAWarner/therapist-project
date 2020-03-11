@@ -19,7 +19,6 @@ class RegisterPatient extends Component{
     render(){
         return(
             <section>
-                <h2>Client</h2>
                 <input
                     type="text"
                     name="username"
@@ -44,7 +43,7 @@ class RegisterPatient extends Component{
                     placeholder="Last Name"
                     onChange={this.handleChange}
                 />
-                <Link to='/home'>
+                <Link to='/login'>
                     <button
                         onClick={this.register}
                     >

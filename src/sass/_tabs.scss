@@ -1,0 +1,25 @@
+.nav-tabs{
+    border-bottom: unset;
+    justify-content: center;
+    border: unset;
+    margin: 0;
+
+    .nav-link{
+        &:hover{
+            border: unset;
+            color: darken($primary, 25%);
+            @extend .pointer;
+        }
+        &:focus{
+            outline: unset;
+            border: unset;
+        }
+        &.active{
+            background-color: transparent;
+            color: $primary;
+            border: unset;
+            border-bottom: 3px solid $primary;
+        }
+    }
+
+}

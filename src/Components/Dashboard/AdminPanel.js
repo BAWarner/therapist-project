@@ -38,7 +38,7 @@ class AdminPanel extends Component{
                 return <Patient key={i} patientInfo={ patient } />;
             }
         } )
-        var pendingPatient = patientList.filter( (patient, i) => {
+        var pendingPatient = patientList.map( (patient, i) => {
             if(patient.status === 'pending'){
                 return <PendingPatient key={i} patientInfo={ patient } />;
             }
@@ -53,22 +53,29 @@ class AdminPanel extends Component{
         }).sort(this.sortDate);
         return(
             <div className='adminPanel'>
-                <h1>Admin Panel</h1>
-                <div className='row align-top justify-between'>
+                <div className='row align-top justify-between row-mobile-reverse'>
                     <div className='col col-sm-12 col-md-8'>
                         <div className='row'>
-                            <div className='col-sm-12'>
-                                <h2>Pending Clients</h2>
-                                {   pendingPatient.length > 0
-                                    ?
-                                        pendingPatient
-                                    :
-                                        'No Clients currently pending' 
-                                }
+                            <div className='col-sm-12 mrg-btm-25'>
+                                <div className='row align-items-top'>
+                                    <div className='col-sm-12 no-pad mrg-btm-25'>
+                                        <h2>Pending Clients</h2>
+                                    </div>
+                                    {   pendingPatient.length > 0
+                                        ?
+                                            pendingPatient
+                                        :
+                                            'No Clients currently pending' 
+                                    }
+                                </div>
                             </div>
                             <div className='col-sm-12'>
-                                <h2>Current Clients</h2>
-                                { currentPatient }
+                                <div className='row align-items-top'>
+                                    <div className='col-sm-12 no-pad mrg-btm-25'>
+                                        <h2>Current Clients</h2>
+                                    </div>
+                                    { currentPatient }
+                                </div>
                             </div>
                         </div>
                     </div>

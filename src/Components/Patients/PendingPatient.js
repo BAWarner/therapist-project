@@ -14,8 +14,10 @@ class PendingPatient extends Component{
         return(
             <>
                 <Patient patientInfo={ this.props.patientInfo }/>
-                <button name='active' onClick={ e => this.handleDecision(e) }>Accept</button>
-                <button name='decline' onClick={ e => this.handleDecision(e) }>Decline</button>
+                <div className='col-sm-12'>
+                    <button className='small mrg-right-25' name='active' onClick={ e => this.handleDecision(e) }>Accept</button>
+                    <button className='small hollow' name='decline' onClick={ e => this.handleDecision(e) }>Decline</button>
+                </div>
             </>
         );
     }

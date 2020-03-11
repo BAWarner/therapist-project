@@ -40,7 +40,7 @@ class CheckoutForm extends Component{
                 description='Pre-pay for appointment time'
                 name={this.props.name}
             >
-                <button className='btn btn-primary'>Schedule</button>
+                <button>Schedule</button>
             </StripeCheckout>
         )
     }

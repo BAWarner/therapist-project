@@ -1,0 +1,42 @@
+nav{
+    background-color: $white;
+    padding: 25px 0;
+    box-shadow: 0px 0px 0px rgba(0,0,0,0.4);
+    ul{
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        li{
+            @extend .pointer;
+            a{
+                &:hover,
+                &:active{
+                    text-decoration: none;
+                }
+                &:hover{
+                    color: $primary
+                }
+            }
+        }
+    }
+}
+
+.logo{
+    display: block;
+    border: 3px solid $primary;
+    width: 60px;
+    height: 60px;
+    padding: 15px;
+    border-radius: 100%;
+    font-size: 20px;
+    transition: all 0.2s linear;
+    &:hover{
+        color: $secondary;
+        border-color: $secondary;
+        transition: all 0.2s linear;
+    }
+}
+
+.nav-mrg{
+    @extend .mrg-btm-55;
+}

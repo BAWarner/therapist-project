@@ -39,10 +39,11 @@ class Compose extends Component{
     }
     render(){
         return(
-            <div className='compose review'>
-                <input onChange={ e => this.handleChange(e) } type='range' min='1' max='5' step='0.5' name='rating'/>
-                <span className='stars'>{ this.state.rating }</span>
-                <textarea onChange={ e => this.handleChange(e) } name='comment' value={this.state.comment}></textarea>
+            <div className='compose text-center review'>
+                <h4>Leave Your Review Here!</h4>
+                <input className='inline-block width-90-p' onChange={ e => this.handleChange(e) } type='range' min='1' max='5' step='0.5' name='rating'/>
+                <span className='stars inline-block width-10-p'>{ this.state.rating }</span>
+                <textarea className='width-100-p comment-input mrg-btm-25' onChange={ e => this.handleChange(e) } name='comment' placeholder='Review...' value={this.state.comment}></textarea>
                 <button onClick={this.handleSubmit}>Submit Review</button>
             </div>
         );

@@ -143,7 +143,7 @@ class AdminCalendar extends Component{
         let { price, title, start, end, edited } = this.state;
         return(
             <div>
-                <button onClick={this.handleSave}>Save</button>
+                <button className='small mrg-btm-25' onClick={this.handleSave}>Save</button>
                 <Calendar
                     selectable
                     localizer={localizer}
@@ -157,14 +157,30 @@ class AdminCalendar extends Component{
                 {
                     this.state.showForm
                     ?
-                        <form style={{ position: 'fixed', top: '-50%', transform: 'translateY(50%)', left: 0, right: 0, bottom: 0, width: '50%', margin: '0 auto', zIndex: 9999 }} >
-                            <input type='text' name='title' value={title ? title : ''} onChange={ e => this.handleChange(e) } />
-                            <input type='text' name='start' value={start} onChange={ e => this.handleChange(e) } />
-                            <input type='text' name='end' value={end} onChange={ e => this.handleChange(e) } />
-                            <input type='number' name='price' value={price ? price : null} onChange={ e => this.handleChange(e) } />
-                            <button onClick={this.handleSubmit}>{ edited ? 'Edit' : 'Add Appointment'}</button>
-                            <button onClick={this.handleCancel}>Cancel</button>
-                        </form>
+                        <div className='lightbox text-center'>
+                            <div className='overlay'></div>
+                            <div className='form createEvent'>
+                                <h3 className='mrg-btm-25'>Create New Event</h3>
+                                <input
+                                    placeholder='Event Title'
+                                    type='text' 
+                                    name='title' 
+                                    value={title ? title : ''} 
+                                    onChange={ e => this.handleChange(e) } 
+                                />
+                                <input type='text' name='start' value={start} onChange={ e => this.handleChange(e) } />
+                                <input type='text' name='end' value={end} onChange={ e => this.handleChange(e) } />
+                                <input
+                                    placeholder='Price of Event'
+                                    type='number' name='price'
+                                    value={price ? price : null}
+                                    onChange={ e => this.handleChange(e) }
+                                    className='block width-100-p mrg-btm-25'
+                                />
+                                <button onClick={this.handleSubmit}>{ edited ? 'Edit' : 'Add Appointment'}</button>
+                                <button className='small cancel' onClick={ this.handleCancel }>Cancel</button>
+                            </div>
+                        </div>
                     : null
                 }
             </div>

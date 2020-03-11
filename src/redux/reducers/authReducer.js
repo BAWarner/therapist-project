@@ -6,6 +6,9 @@ var initialState = {
     firstName: '',
     lastName: '',
     profile_image: '',
+    amenities: [],
+    specialties: [],
+    methods: [],
     user: {},
     loading: false
 }

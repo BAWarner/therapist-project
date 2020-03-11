@@ -49,19 +49,19 @@ app.post('/auth/handleStripe', handleStripe);
 // Therapist
 var therapistCtrl = require('./controllers/therapistController');
 let { getAllTherapists, getOverallRatings, getAllReviews, postReview, 
-    getTherapistSpecialties, getPatientList, changePatientStatus, addNewAppointment,
-    getTherapistAppointments, updateAppointment } = therapistCtrl;
+    getPatientList, changePatientStatus, addNewAppointment,
+    getTherapistAppointments, updateAppointment, getExtraInfo } = therapistCtrl;
 
 app.get('/api/therapists', getAllTherapists);
 app.get('/api/therapists/ratings/:id', getOverallRatings);
 app.get('/api/therapists/reviews', getAllReviews);
 app.post('/api/therapists/reviews', postReview);
-app.get('/api/therapists/specialties/:id', getTherapistSpecialties);
 app.get('/api/therapists/patients/:id', getPatientList);
 app.put('/api/therapists/patients/:id', changePatientStatus);
 app.post('/api/therapists/appointments/:id', addNewAppointment);
 app.get('/api/therapists/appointments/:id', getTherapistAppointments);
 app.put('/api/therapists/appointments/:id', updateAppointment);
+app.get('/api/therapists/extras/:id', getExtraInfo);
 
 // Resources
 var resourceCtrl = require('./controllers/resourceController');
@@ -75,9 +75,9 @@ app.delete('/api/resources/:id', deleteResource);
 
 // Patient
 var patientCtrl = require('./controllers/patientController');
-let { updatePatient, postStatus, getAppointments, getContact } = patientCtrl;
+let { updatePatient, getAppointments, getContact, updateAssignment } = patientCtrl;
 
+app.put('/api/patients/assignments', updateAssignment);
 app.put('/api/patients/:id', updatePatient);
-app.post('/api/patients/status', postStatus);
 app.get('/api/patients/appointments/:id', getAppointments);
 app.get('/api/patients/contact/:id', getContact);

@@ -15,8 +15,7 @@ class ClientResources extends Component{
             return <ClientResource key={i} resource={resource} />
         })
         return(
-            <div>
-                Client Resource List
+            <div className='row align-items-top justify-between'>
                 { mappedResources.length > 0 ? mappedResources : 'Looks like there aren\'t too many resources to see yet'  }
             </div>
         );

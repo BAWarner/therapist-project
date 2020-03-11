@@ -75,16 +75,27 @@ class TherapistResources extends Component{
             );
         }
         return(
-            <div>
-                <button onClick={ this.toggleAdd }>{ this.state.showAdd ? 'Cancel' : 'Add New Resource' }</button>
+            <div className='row align-items-top justify-between'>
+                <div className='col-sm-12 mrg-btm-25'>
+                    <button onClick={ this.toggleAdd }>Add New Resource</button>
+                </div>
                 {
                     this.state.showAdd
                         ?
-                            <section>
-                                <input type='text' name='name' placeholder='Title of Document' onChange={e => this.handleChange(e)}/>
-                                <button name='document' onClick={ () => widget.open() }>Upload Document</button>
-                                <textarea name='description' onChange={e => this.handleChange(e)}></textarea>
-                                <button onClick={this.handleSubmit}>Submit</button>
+                            <section className='lightbox admin resource'>
+                                <div className='overlay'></div>
+                                <div className='form'>
+                                    <button className='small cancel' onClick={ this.toggleAdd }>Cancel</button>
+                                    <input type='text' name='name' placeholder='Title of Document' onChange={e => this.handleChange(e)}/>
+                                    <button name='document' onClick={ () => widget.open() }>Upload Document</button>
+                                    <textarea
+                                        placeholder='Document Description...' 
+                                        name='description' 
+                                        onChange={e => this.handleChange(e)}
+                                        className='width-100-p mrg-top-25 mrg-btm-25'
+                                    ></textarea>
+                                    <button onClick={this.handleSubmit}>Submit</button>
+                                </div>
                             </section>
                         : null
                 }

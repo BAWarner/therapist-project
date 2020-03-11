@@ -23,40 +23,45 @@ class Login extends Component{
     }
     render(){
 
-        if (this.props.user) return <Redirect to='/home' />
+        if (this.props.user.user_id) return <Redirect to='/home' />
 
         return(
-            <div className='wrap login'>
-                <h1>Log In</h1>
-                <input 
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    onChange={this.handleChange}
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={this.handleChange}
-                    onKeyPress={this.handleKeyPress}
-                />
+            <div className='bg-cover height-100-vh-calc bg-face'>
+                <div className='overlay light'></div>
+                <div className='wrap row height-100-p z-index-2 align-items-middle justify-center'>
+                    <div className='col col-sm-12 col-md-5 bg-white block login-wrap pad-55 text-center'>
+                        <h4>Login</h4>
+                        <input 
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            onChange={this.handleChange}
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            onChange={this.handleChange}
+                            onKeyPress={this.handleKeyPress}
+                        />
 
-                <button
-                    onClick={this.login}
-                >
-                    Log In
-                </button>
+                        <button
+                            onClick={this.login}
+                        >
+                            Log In
+                        </button>
 
-                <span>
-                    Don't have an account?&nbsp;
-                    <Link
-                        to='/register'
-                    >
-                        Click Here&nbsp;
-                    </Link> 
-                    to register
-                </span>
+                        <span className='block pad-top-25'>
+                            Don't have an account?&nbsp;
+                            <Link
+                                to='/register'
+                            >
+                                Click Here&nbsp;
+                            </Link> 
+                            to register
+                        </span>
+                    </div>
+                </div>
             </div>
         );
     }
